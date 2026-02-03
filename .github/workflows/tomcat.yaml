@@ -24,4 +24,4 @@ jobs:
 
       - name: Push 
         run: |
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/mytomcat:lastest 
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/mytomcat:latest 
