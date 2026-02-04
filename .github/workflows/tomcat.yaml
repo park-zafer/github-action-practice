@@ -25,3 +25,13 @@ jobs:
       - name: Push 
         run: |
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/mytomcat2:latest 
+      
+      - name: k8s manifest
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          sed -i "s|image: .*|image: ${{ secrets.DOCKERHUB_USERNAME }}/mytomcat2:latest|g" k8s/deployment.yaml
+          echo "# Final Build $(date)" >> k8s/deployment.yaml
+          git add .
+          git commit -m "update image [ski ci]"  #무한 루프를 막을 수 있음
+          git push origin main
